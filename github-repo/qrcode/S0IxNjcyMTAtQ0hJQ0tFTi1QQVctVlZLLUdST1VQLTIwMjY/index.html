@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Державна служба України з питань безпечності харчових продуктів та захисту споживачів</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5e6e0 0%, #e8eaf0 50%, #f0e8e4 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .header-logo {
+    width: 44px;
+    height: 44px;
+    background: #2d3748;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .header-logo svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
+  }
+  .header-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a202c;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    max-width: 520px;
+    width: 100%;
+    padding: 32px;
+  }
+  .card-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a202c;
+    line-height: 1.3;
+  }
+  .status-badge {
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: 400;
+    white-space: nowrap;
+    margin-left: 12px;
+  }
+  .card-subtitle {
+    font-size: 13px;
+    color: #a0aec0;
+    margin-bottom: 4px;
+  }
+  .card-note {
+    font-size: 13px;
+    color: #a0aec0;
+    margin-bottom: 24px;
+  }
+  .info-table {
+    width: 100%;
+    margin-bottom: 24px;
+    border-spacing: 0;
+  }
+  .info-table td {
+    padding: 10px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .info-table tr:last-child td {
+    border-bottom: none;
+  }
+  .info-table td:first-child {
+    color: #a0aec0;
+    padding-right: 20px;
+    white-space: nowrap;
+  }
+  .info-table td:last-child {
+    color: #1a202c;
+    font-weight: 600;
+    text-align: right;
+  }
+  .download-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: #4299e1;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .download-btn:hover {
+    background: #3182ce;
+  }
+  /* Certificate detail overlay */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .overlay.active { display: flex; justify-content: center; align-items: flex-start; }
+  .cert-detail {
+    background: white;
+    border-radius: 16px;
+    max-width: 800px;
+    width: 100%;
+    padding: 40px;
+    margin: 40px auto;
+    position: relative;
+  }
+  .close-btn {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: #edf2f7;
+    border: none;
+    border-radius: 50%;
+    width: 36px; height: 36px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a5568;
+  }
+  .close-btn:hover { background: #e2e8f0; }
+  .cert-header {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #2d3748;
+  }
+  .cert-header h1 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .cert-header h2 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2d3748;
+    line-height: 1.5;
+  }
+  .cert-body h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 20px 0 10px;
+  }
+  .cert-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 13px;
+  }
+  .cert-body table td {
+    padding: 6px 10px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  .cert-body table td:first-child {
+    color: #4a5568;
+    width: 220px;
+    background: #f7fafc;
+    font-weight: 500;
+  }
+  .cert-body p, .cert-body li {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #2d3748;
+    margin-bottom: 8px;
+  }
+  .cert-body ul {
+    padding-left: 20px;
+  }
+  .cert-signature {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 2px solid #2d3748;
+  }
+  .cert-signature table td {
+    background: transparent !important;
+    border: none !important;
+    font-size: 13px;
+    padding: 4px 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-logo">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm7 4l-5 8h10l-5-8z"/>
+    </svg>
+  </div>
+  <div class="header-text">
+    ДЕРЖАВНА СЛУЖБА УКРАЇНИ<br>
+    З ПИТАНЬ БЕЗПЕЧНОСТІ ХАРЧОВИХ<br>
+    ПРОДУКТІВ ТА ЗАХИСТУ СПОЖИВАЧІВ
+  </div>
+</div>
+
+<!-- Card -->
+<div class="card">
+  <div class="card-title-row">
+    <span class="card-title">Міжнародний сертифікат на харчові продукти</span>
+    <span class="status-badge">Закритий</span>
+  </div>
+  <div class="card-subtitle">Офіційний перегляд документа</div>
+  <div class="card-note">Документ відкриється у новій вкладці</div>
+
+  <table class="info-table">
+    <tr><td>Стан запису</td><td>Закритий</td></tr>
+    <tr><td>Порядковий номер документу</td><td>8034521</td></tr>
+    <tr><td>Номер документа</td><td>167210</td></tr>
+    <tr><td>Дата документа</td><td>2026-03-17</td></tr>
+  </table>
+
+  <button class="download-btn" onclick="document.getElementById('overlay').classList.add('active')">
+    Завантажити PDF
+  </button>
+</div>
+
+<!-- Certificate Detail Overlay -->
+<div class="overlay" id="overlay">
+  <div class="cert-detail">
+    <button class="close-btn" onclick="document.getElementById('overlay').classList.remove('active')">&times;</button>
+    <div class="cert-header">
+      <h1>ДЕРЖАВНА СЛУЖБА УКРАЇНИ З ПИТАНЬ БЕЗПЕЧНОСТІ ХАРЧОВИХ ПРОДУКТІВ ТА ЗАХИСТУ СПОЖИВАЧІВ<br>
+      STATE SERVICE OF UKRAINE ON FOOD SAFETY AND CONSUMER PROTECTION SSUFSCP</h1>
+      <h2>СЕРТИФІКАТ ЗДОРОВ'Я НА ЕКСПОРТ З УКРАЇНИ ДО В'ЄТНАМУ<br>
+      М'ЯСА ПТИЦІ ТА ЇСТІВНИХ ПОБІЧНИХ ПРОДУКТІВ ПТАХІВНИЦТВА<br>
+      ДЛЯ ПОДАЛЬШОЇ ПЕРЕРОБКИ ТА ЕКСПОРТУ<br><br>
+      HEALTH CERTIFICATE FOR EXPORT OF POULTRY MEAT AND POULTRY EDIBLE BY-PRODUCTS<br>
+      FROM UKRAINE TO VIETNAM FOR FURTHER PROCESSING AND EXPORT</h2>
+      <p style="margin-top:10px;font-size:13px;color:#4a5568;">КБ № 167210</p>
+    </div>
+
+    <div class="cert-body">
+      <h3>Частина I: Подробиці щодо відправленого вантажу / Part I: Details of dispatched consignment</h3>
+
+      <table>
+        <tr><td>I.1. Відправник / Consignor</td>
+        <td><strong>ТОВ «ВВК ГРУП» / LLC «VVK GROUP»</strong><br>
+        55, Voloshkova street, Vinnitsia region, Vinnytsia, Ukraine, 21034<br>
+        ТЕЛ.: +38(0432) 55-66-05, +38(096) 155 77 77</td></tr>
+
+        <tr><td>I.2. Certificate Reference No</td>
+        <td><strong>КБ №167210</strong></td></tr>
+
+        <tr><td>I.3. Central Competent Authority</td>
+        <td>State Service of Ukraine on Food Safety and Consumer Protection / SSUFSCP</td></tr>
+
+        <tr><td>I.4. Local Competent Authority</td>
+        <td>Vinnytsia City Department of the Vinnytsia District State Hospital of Veterinary Medicine</td></tr>
+
+        <tr><td>I.5. Consignee / Одержувач</td>
+        <td><strong>MYCOLI</strong><br>
+        Section 1, Mong Cai 3 Ward, Quang Ninh Province, Viet Nam</td></tr>
+
+        <tr><td>I.7. Country of Origin</td>
+        <td><strong>UKRAINE</strong> (UA-1)</td></tr>
+
+        <tr><td>I.9. Country of Destination</td>
+        <td><strong>VIETNAM</strong> (HAI PHONG)</td></tr>
+
+        <tr><td>I.11. Place of Origin</td>
+        <td><strong>LLC «VVK GROUP»</strong><br>55, Voloshkova street, Vinnitsia region, Vinnytsia, Ukraine, 21034</td></tr>
+
+        <tr><td>I.14. Date of Departure</td>
+        <td><strong>06.09.2025</strong></td></tr>
+
+        <tr><td>I.15. Means of Transport</td>
+        <td>SHIP: ✓ &nbsp; ROAD VEHICLE: ✓<br>
+        CMR No 040902 from 06.09.2025<br>Seal: E33403245</td></tr>
+
+        <tr><td>I.16. Entry Point in Vietnam</td>
+        <td><strong>HAI PHONG PORT</strong></td></tr>
+
+        <tr><td>I.18. Description of Commodity</td>
+        <td><strong>FROZEN CHICKEN PAW A/S GRADE</strong></td></tr>
+
+        <tr><td>I.19. Commodity Code (HS Code)</td>
+        <td><strong>020714</strong></td></tr>
+
+        <tr><td>I.20. Quantity</td>
+        <td>Net Weight: <strong>19 980.000 KG</strong><br>
+        Gross Weight: <strong>20 464.000 KG</strong></td></tr>
+
+        <tr><td>I.21. Temperature</td>
+        <td><strong>FROZEN</strong></td></tr>
+
+        <tr><td>I.22. Number of Packages</td>
+        <td><strong>1 998</strong></td></tr>
+
+        <tr><td>I.23. Container / Seal Number</td>
+        <td>VESSEL: La GALTE<br>
+        CONTAINER: <strong>CGMU5124692</strong><br>
+        SEAL: <strong>E33264583</strong></td></tr>
+
+        <tr><td>I.24. Type of Packaging</td>
+        <td><strong>Polyblok</strong></td></tr>
+
+        <tr><td>I.25. Certified for</td>
+        <td><strong>HUMAN CONSUMPTION</strong></td></tr>
+
+        <tr><td>I.26. Identification</td>
+        <td><strong>FROZEN CHICKEN PAWS A/S GRADE</strong><br>
+        Approval No: a-UA-02-28-117-II-CP; V-MP-MSM; XVI-PP-SP-PS<br>
+        Species: chicken<br>
+        Nature: frozen<br>
+        Scientific name: <em>Gallus gallus domesticus</em><br>
+        Net weight: 19 980.000 kg</td></tr>
+      </table>
+
+      <h3>Частина II: Сертифікація здоров'я / Part II: Health attestation</h3>
+      <p><strong>II.1</strong> Я, що нижче підписався державний інспектор, підтверджую, що товари, описані в цьому сертифікаті, відповідають таким вимогам:</p>
+      <p><em>I, the undersigned official veterinarian, hereby certify that the poultry meat and poultry edible by-products described in this certificate have been obtained in accordance with those requirements, and in particular that:</em></p>
+      <ul>
+        <li>продукти виготовлено на потужностях, включених до переліку підприємств, яким компетентним органом України надано право експорту, із запровадженими процедурами НАССР;</li>
+        <li>походять від забою клінічно здорових тварин, що походять з потужностей та районів, офіційно визнаних вільними від інфекційних хвороб;</li>
+        <li>Грип птиці — відсутній протягом останніх 12 місяців на території країни;</li>
+        <li>Хвороба Ньюкасла — відсутня протягом останніх 12 місяців;</li>
+        <li>продукти виробляються відповідно до Державного плану моніторингу ветеринарних препаратів;</li>
+        <li>застосовані попереджуючі заходи проти контакту з вірусом грипу птиці;</li>
+        <li>визнані придатними для споживання людиною;</li>
+        <li>заготовлені, оброблені, запаковані та транспортовані у гігієнічних умовах.</li>
+      </ul>
+
+      <div class="cert-signature">
+        <table>
+          <tr><td><strong>Офіційний ветеринарний лікар / Official veterinarian</strong></td>
+          <td></td></tr>
+          <tr><td>Прізвище / Name:</td><td><strong>TETIANA LIVADA</strong></td></tr>
+          <tr><td>Кваліфікація / Qualification:</td><td>Leading doctor of Vinnytsia City department of the Vinnytsia district state Hospital of Veterinary Medicine</td></tr>
+          <tr><td>Дата / Date:</td><td><strong>06.09.2025</strong></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
