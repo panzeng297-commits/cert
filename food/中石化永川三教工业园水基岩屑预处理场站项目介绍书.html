@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中石化永川三教工业园水基岩屑预处理场站项目介绍书</title>
+  <style>
+    :root {
+      --ink: #1f2933;
+      --muted: #5f6b7a;
+      --line: #d9e2ec;
+      --soft: #f5f8fb;
+      --brand: #0f6b5f;
+      --brand-dark: #0b4f47;
+      --accent: #c9972c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+      line-height: 1.78;
+      background: #eef3f7;
+    }
+
+    .page {
+      width: min(100%, 920px);
+      margin: 32px auto;
+      background: #fff;
+      box-shadow: 0 18px 50px rgba(31, 41, 51, 0.14);
+    }
+
+    .cover {
+      position: relative;
+      min-height: 420px;
+      padding: 58px 68px 52px;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(11, 79, 71, 0.96), rgba(15, 107, 95, 0.82)),
+        linear-gradient(45deg, #0b4f47, #173f5f);
+      overflow: hidden;
+    }
+
+    .cover::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: -130px;
+      width: 430px;
+      height: 430px;
+      border: 42px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      width: fit-content;
+      margin: 0 0 32px;
+      padding: 6px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      border-radius: 4px;
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0;
+      font-size: 38px;
+      line-height: 1.28;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      position: relative;
+      z-index: 1;
+      margin-top: 26px;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .cover-meta {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 58px;
+    }
+
+    .meta-item {
+      padding-top: 14px;
+      border-top: 2px solid rgba(255, 255, 255, 0.36);
+    }
+
+    .meta-label {
+      display: block;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .meta-value {
+      display: block;
+      margin-top: 4px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    main {
+      padding: 44px 68px 58px;
+    }
+
+    section {
+      margin: 0 0 34px;
+      break-inside: avoid;
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 18px;
+      color: var(--brand-dark);
+      font-size: 24px;
+      line-height: 1.35;
+      letter-spacing: 0;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+    }
+
+    h2::before {
+      content: "";
+      width: 6px;
+      height: 24px;
+      border-radius: 2px;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    h3 {
+      margin: 22px 0 10px;
+      color: #263847;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    p {
+      margin: 0 0 12px;
+      text-align: justify;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      border: 1px solid var(--line);
+      border-bottom: 0;
+      margin: 12px 0 18px;
+    }
+
+    .info-grid div {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .info-grid .label {
+      color: var(--brand-dark);
+      font-weight: 700;
+      background: var(--soft);
+    }
+
+    .highlight {
+      color: var(--brand-dark);
+      font-weight: 800;
+    }
+
+    .callout {
+      margin: 16px 0 8px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--accent);
+      background: #fbf8ef;
+      color: #324552;
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    li {
+      position: relative;
+      margin: 0 0 10px;
+      padding-left: 22px;
+      text-align: justify;
+    }
+
+    li::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 0.78em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--brand);
+    }
+
+    .process-list strong,
+    .plan-list strong {
+      color: var(--brand-dark);
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .benefit {
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--brand);
+      padding: 16px;
+      min-height: 230px;
+      background: #fff;
+    }
+
+    .benefit h3 {
+      margin-top: 0;
+    }
+
+    .signature {
+      margin-top: 38px;
+      text-align: right;
+      color: #263847;
+      font-weight: 700;
+    }
+
+    .signature span {
+      display: block;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        margin: 0;
+        box-shadow: none;
+      }
+
+      .cover,
+      main {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .cover-meta,
+      .benefit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-grid {
+        grid-template-columns: 96px 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        width: auto;
+        margin: 0;
+        box-shadow: none;
+      }
+
+      .cover {
+        min-height: 340px;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      main {
+        padding: 34px 48px 42px;
+      }
+
+      h2,
+      h3,
+      .benefit,
+      .info-grid,
+      .callout {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <article class="page">
+    <header class="cover">
+      <p class="eyebrow">项目介绍书</p>
+      <h1>中石化永川三教工业园水基岩屑预处理场站项目介绍书</h1>
+      <p class="subtitle">环保达标 · 资源化利用 · 园区绿色低碳发展</p>
+      <div class="cover-meta">
+        <div class="meta-item">
+          <span class="meta-label">建设单位</span>
+          <span class="meta-value">中石化西南石油地质勘察工程有限公司</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">建设地址</span>
+          <span class="meta-value">重庆市永川区三教工业园区</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">编制时间</span>
+          <span class="meta-value">2026 年 4 月</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <h2>一、项目概况</h2>
+        <h3>1.1 项目基本信息</h3>
+        <div class="info-grid">
+          <div class="label">项目名称</div>
+          <div>中石化永川区三教工业园水基岩屑无害化预处理资源化利用场站建设项目</div>
+          <div class="label">建设地址</div>
+          <div>重庆市永川区三教工业园区</div>
+          <div class="label">建设单位</div>
+          <div>中石化西南石油地质勘察工程有限公司</div>
+          <div class="label">投资规模</div>
+          <div>2000 万元人民币，全额企业自筹</div>
+          <div class="label">建设性质</div>
+          <div>新建油气钻井固废专业化环保预处理设施</div>
+          <div class="label">建设规模</div>
+          <div>项目建成后，年处理水基岩屑 10 万吨，<span class="highlight">预计年实现产值 5000 万元</span></div>
+        </div>
+        <p>建设意义：适配川渝页岩气规模化开发需求，解决区域水基钻井岩屑无害化处置闭环难题，落实长江经济带生态环保管控要求，践行固废减量化、无害化、资源化全链条管控理念，助力园区绿色低碳循环经济发展，同时为地方带来稳定产值贡献，推动园区产业与生态协同发展。</p>
+
+        <h3>1.2 项目背景与必要性</h3>
+        <p>川渝地区页岩气勘探开发持续放量，永川及周边区域油气钻井产生大量水基岩屑。此类固废普遍存在高含水率、含硫、高碱度、高氯离子等特性，随意堆存、处置易造成土壤、地下水及周边生态环境污染，不符合长江流域生态环境严控要求。</p>
+        <p>目前区域内水基岩屑专业化处置能力不足、处置工艺不规范、资源化利用链条不完整，难以满足中石化页岩气开发环保处置刚需。本项目落地三教工业园，通过井场、场站与终端的协同管理，构建“本地专业化预处理 + 跨区水泥窑协同资源化”一体化处置模式，可补齐永川页岩气开发环保处置短板，筑牢区域环境安全底线，契合园区循环经济、绿色产业发展定位，同时以规模化处置实现产值效益，助力园区经济增长。</p>
+      </section>
+
+      <section>
+        <h2>二、核心处理能力与工艺流程</h2>
+        <h3>2.1 核心处理能力</h3>
+        <p>项目设计年处置水基岩屑 10 万吨，采用全流程密闭自动化处置工艺，可全天候稳定运行，实现水基岩屑即到即处理，全程固废不外溢、不落地、无二次污染，精准完成脱硫、脱碱、除氯离子、深度降含水率四大核心处理目标，处置后固相产物满足水泥生产原料标准。</p>
+
+        <h3>2.2 核心处理工艺流程</h3>
+        <p>本项目采用多级化学调理、机械深度脱水与污染物稳定化耦合工艺，全流程密闭负压作业，环保达标、高效可控，具体流程如下：</p>
+        <ul class="process-list">
+          <li><strong>密闭进料输送：</strong>水基岩屑从井场密闭转运至厂区后，通过密闭卸车、螺旋输送机密闭输送至处理车间，全程杜绝扬尘、渗滤液散落污染。</li>
+          <li><strong>均质调理净化：</strong>岩屑进入均质调理罐，精准投加专用药剂，同步完成三大处理目标：一是中和岩屑高碱组分，将 pH 值调节至 6-9 合规区间；二是通过氧化、稳定化反应有效去除硫化物；三是利用稳定化药剂控制氯离子迁移风险。</li>
+          <li><strong>多级固液分离：</strong>先通过高频振动筛进行粗分离，去除大颗粒杂质，再经卧螺离心机进行深度离心脱水，将岩屑含水率从原生 60%-80% 降至≤25%，满足水泥原料使用要求。</li>
+          <li><strong>稳定化养护：</strong>脱水后的固相物料进行二次稳定化配比，进一步固化残留污染物，确保浸出毒性符合国家固废资源化利用标准。</li>
+          <li><strong>废水循环回用：</strong>分离产生的废水经净化、脱盐处理后，100% 回用于厂区生产及钻井作业，实现废水零外排。</li>
+          <li><strong>废气达标处置：</strong>车间废气经负压收集、除尘、除臭、脱硫净化处理后，达标高空排放，控制异味及粉尘影响。</li>
+          <li><strong>资源化转运：</strong>处理达标后的固相产物，通过密闭车辆定向转运至铜梁西南水泥有限公司，作为水泥生产优质替代原料，实现 100% 资源化利用。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>三、固废资源化处置去向</h2>
+        <p>项目预处理后的达标固相水基岩屑，全部合规转运至重庆铜梁西南水泥有限公司，进入水泥回转窑进行高温协同煅烧，转化为水泥熟料，实现油气钻井废弃物向工业原料的高效转化。</p>
+        <div class="callout">该处置方式符合国家及重庆市固废资源化利用、水泥窑协同处置固废相关政策规范，全流程可追溯、环境风险可控，形成完整的固废循环利用链条。</div>
+      </section>
+
+      <section>
+        <h2>四、项目效益分析</h2>
+        <div class="benefit-grid">
+          <div class="benefit">
+            <h3>4.1 环境效益</h3>
+            <p>项目投用后，可实现永川及周边区域中石化水基岩屑专业化、规范化集中处置，杜绝零散处置带来的生态污染风险，保护土壤、地下水及大气环境，助力筑牢长江上游重要生态屏障，践行央企生态环保主体责任。</p>
+          </div>
+          <div class="benefit">
+            <h3>4.2 经济效益</h3>
+            <p>项目总投资 2000 万元，建成达产后年处理水基岩屑 10 万吨，<span class="highlight">年实现产值 5000 万元</span>，为园区带来稳定的经济贡献。同时带动园区环保产业配套发展，通过产、运、处各环节的协同管理提升整体运转效率，完善区域固废循环经济产业链，提升园区产业附加值与综合竞争力。</p>
+          </div>
+          <div class="benefit">
+            <h3>4.3 社会效益</h3>
+            <p>填补永川区三教工业园油气钻井固废专业化预处理领域空白，保障川渝页岩气能源开发与生态保护协同推进；项目运营可带动本地就业，规范区域固废处置秩序，助力永川区绿色低碳发展与“双碳”目标落地，彰显央企社会责任与担当。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>五、环保管控与合规保障</h2>
+        <ul>
+          <li>全场采用密闭负压、自动化作业，落实防渗、防雨、防流失“三防”措施，配套建设应急池、环境监测等设施，全方位防控环境风险。</li>
+          <li>废水、废气、噪声全部达标处置，固废实现 100% 资源化利用，无二次污染。</li>
+          <li>严格执行国家、重庆市生态环保相关标准，建立完善固废处置台账、转运联单制度，全程接受生态环境部门及园区管委会监管。</li>
+          <li>项目将依法办理环评、用地、建设等全部审批手续，确保合规建设、合法运营。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>六、项目推进计划</h2>
+        <ul class="plan-list">
+          <li><strong>前期手续阶段：</strong>完成项目立项、环评审批、园区用地对接等全部前期工作。</li>
+          <li><strong>建设施工阶段：</strong>推进场站土建施工、处置设备采购安装。</li>
+          <li><strong>调试运营阶段：</strong>完成设备调试、试生产，通过环保验收后正式投产运营。</li>
+        </ul>
+        <p class="callout">我方将高效推进各项前期工作，力争项目早日建成投用，助力三教工业园绿色高质量发展，恳请园区管委会给予支持与指导。</p>
+      </section>
+
+      <p class="signature">
+        中石化西南石油地质勘察工程有限公司
+        <span>2026 年 4 月</span>
+      </p>
+    </main>
+  </article>
+</body>
+</html>
