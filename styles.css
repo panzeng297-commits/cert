@@ -638,6 +638,63 @@ select {
   color: var(--muted);
 }
 
+.transit-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.transit-card,
+.route-grid article {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.58);
+  padding: clamp(20px, 2.5vw, 30px);
+}
+
+.transit-card span,
+.route-grid span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--olive);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.transit-card h3,
+.route-grid h3 {
+  margin: 0;
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 500;
+}
+
+.transit-card p,
+.route-grid p {
+  margin: 14px 0 0;
+  color: var(--muted);
+}
+
+.location-card {
+  background: var(--soft);
+}
+
+.airport-card {
+  background: #fff8ef;
+}
+
+.route-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.transit-note {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .rules-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -678,6 +735,33 @@ select {
   display: block;
   margin: 10px 0 24px;
   font-size: 20px;
+}
+
+.contact-list {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.contact-list a,
+.contact-list div {
+  display: grid;
+  gap: 4px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.contact-list b {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.contact-disclaimer {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .request-dialog {
@@ -739,7 +823,8 @@ select {
   .booking-form,
   .price-layout,
   .details-section,
-  .contact-section {
+  .contact-section,
+  .transit-layout {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -754,6 +839,10 @@ select {
   }
 
   .rules-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .route-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -821,7 +910,9 @@ select {
   .booking-form,
   .price-layout,
   .details-section,
-  .contact-section {
+  .contact-section,
+  .transit-layout,
+  .route-grid {
     grid-template-columns: 1fr;
   }
 
