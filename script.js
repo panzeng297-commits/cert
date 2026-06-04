@@ -12,7 +12,7 @@ const form = document.querySelector("#bookingForm");
 const checkinInput = document.querySelector("#checkin");
 const checkoutInput = document.querySelector("#checkout");
 const guestsInput = document.querySelector("#guests");
-const roomInput = document.querySelector("#room");
+const roomInputs = [...document.querySelectorAll('input[name="room"]')];
 const estimateTotal = document.querySelector("#estimateTotal");
 const estimateMeta = document.querySelector("#estimateMeta");
 const availabilityStatus = document.querySelector("#availabilityStatus");
@@ -20,6 +20,8 @@ const submitButton = document.querySelector(".submit-button");
 const header = document.querySelector("[data-header]");
 const dialog = document.querySelector("#requestDialog");
 const requestSummary = document.querySelector("#requestSummary");
+const mapDialog = document.querySelector("#mapDialog");
+const mapAddress = "重庆市渝中区化龙桥翡翠云阶 4 栋 C 座";
 const ROOM_CHOICES = ["喵A", "喵B"];
 
 let availabilityData = null;
@@ -49,6 +51,23 @@ function getNightCount() {
 
 function getRateType() {
   return form.querySelector('input[name="rateType"]:checked')?.value || "normal";
+}
+
+function getRoomChoice() {
+  return form.querySelector('input[name="room"]:checked')?.value || "都可以";
+}
+
+function setRoomChoice(room) {
+  const input = roomInputs.find((item) => item.value === room);
+  if (input) input.checked = true;
+  syncRoomCards();
+}
+
+function syncRoomCards() {
+  const selectedRoom = getRoomChoice();
+  document.querySelectorAll("[data-room-choice]").forEach((link) => {
+    link.closest(".room-card")?.classList.toggle("is-selected", link.dataset.roomChoice === selectedRoom);
+  });
 }
 
 function updateEstimate() {
@@ -141,7 +160,7 @@ function getAvailabilityCheck() {
     };
   }
 
-  const roomChoice = roomInput.value;
+  const roomChoice = getRoomChoice();
   const checks = ROOM_CHOICES.map((room) => getRoomCheck(room, nights));
   const availableRooms = checks.filter((check) => check.available).map((check) => check.room);
   const generatedDate = availabilityData.generatedAt
@@ -210,8 +229,8 @@ document.addEventListener("scroll", () => {
 });
 
 document.querySelectorAll("[data-room-choice]").forEach((link) => {
-  link.addEventListener("click", () => {
-    roomInput.value = link.dataset.roomChoice;
+  link.addEventListener("click", (event) => {
+    setRoomChoice(link.dataset.roomChoice);
     updateEstimate();
     updateAvailabilityStatus();
   });
@@ -226,6 +245,7 @@ document.querySelectorAll("[data-close-dialog]").forEach((button) => {
 form.addEventListener("input", () => {
   syncCheckoutMinimum();
   updateEstimate();
+  syncRoomCards();
   updateAvailabilityStatus();
 });
 
@@ -245,9 +265,10 @@ form.addEventListener("submit", (event) => {
   const total = nights * RATES[rateType];
   const summary = [
     `入住 ${formatDate(checkinInput.value)}，离店 ${formatDate(checkoutInput.value)}`,
-    `${nights}晚，${guestsInput.value}人，房型：${roomInput.value}`,
+    `${nights}晚，${guestsInput.value}人，房型：${getRoomChoice()}`,
     `${RATE_LABELS[rateType]} ¥${RATES[rateType]}/晚，预估合计 ¥${total}`,
     availabilityCheck.availableRooms.length ? `当前可申请房型：${availabilityCheck.availableRooms.join("、")}` : "房态需人工复核",
+    "入住时间为 14:00 后，平日退房 12:00 前，节假日退房 10:00 前",
     "提交后仍需房东确认房态、价格和入住方式；确认可住后再发送支付二维码。",
   ].join("。");
 
@@ -259,8 +280,65 @@ form.addEventListener("submit", (event) => {
   }
 });
 
+function getMapLinks() {
+  const encodedAddress = encodeURIComponent(mapAddress);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isMobile = isIOS || isAndroid;
+  const amapApp = isIOS
+    ? `iosamap://path?sourceApplication=MiaoStay&dname=${encodedAddress}&dev=0&t=0`
+    : isAndroid
+      ? `androidamap://keywordNavi?sourceApplication=MiaoStay&keyword=${encodedAddress}&style=2`
+      : `https://uri.amap.com/search?keyword=${encodedAddress}`;
+
+  return {
+    amap: amapApp,
+    baidu: isMobile
+      ? `baidumap://map/geocoder?address=${encodedAddress}&src=MiaoStay`
+      : `https://map.baidu.com/search/${encodedAddress}`,
+    tencent: isMobile
+      ? `qqmap://map/search?keyword=${encodedAddress}`
+      : `https://apis.map.qq.com/uri/v1/search?keyword=${encodedAddress}`,
+  };
+}
+
+function refreshMapLinks() {
+  const links = getMapLinks();
+  document.querySelectorAll("[data-map-link]").forEach((link) => {
+    link.href = links[link.dataset.mapLink] || "#";
+  });
+}
+
+document.querySelectorAll("[data-open-map]").forEach((button) => {
+  button.addEventListener("click", () => {
+    refreshMapLinks();
+    if (typeof mapDialog?.showModal === "function") {
+      mapDialog.showModal();
+    } else {
+      window.location.href = `https://uri.amap.com/search?keyword=${encodeURIComponent(mapAddress)}`;
+    }
+  });
+});
+
+document.querySelectorAll("[data-close-map]").forEach((button) => {
+  button.addEventListener("click", () => {
+    mapDialog.close();
+  });
+});
+
+document.querySelector("[data-copy-address]")?.addEventListener("click", async (event) => {
+  try {
+    await navigator.clipboard.writeText(mapAddress);
+    event.currentTarget.textContent = "已复制地址";
+  } catch (error) {
+    window.prompt("复制地址", mapAddress);
+  }
+});
+
 setDefaultDates();
 syncCheckoutMinimum();
 updateEstimate();
+syncRoomCards();
 updateAvailabilityStatus();
+refreshMapLinks();
 loadAvailability();
