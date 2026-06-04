@@ -18,6 +18,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 92px;
 }
 
 body {
@@ -283,62 +284,37 @@ select {
   backdrop-filter: blur(8px);
 }
 
-.booking-band {
-  width: min(1180px, calc(100% - 40px));
-  margin: clamp(78px, 9vw, 128px) auto 0;
-  position: relative;
+.room-booking-form {
   display: grid;
-  gap: 30px;
-  border-top: 1px solid var(--line);
-  padding-top: clamp(34px, 5vw, 58px);
+  gap: 14px;
+  margin-top: 24px;
+  border: 1px solid rgba(32, 35, 31, 0.12);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.74);
+  padding: clamp(16px, 2vw, 22px);
 }
 
-.booking-intro {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: clamp(24px, 5vw, 74px);
+.room-booking-head {
+  display: flex;
   align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
 }
 
-.booking-intro span {
-  display: block;
-  margin-bottom: 10px;
-  color: var(--olive);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.booking-intro h2 {
+.room-booking-head h4 {
   margin: 0;
-  font-size: clamp(30px, 4.4vw, 58px);
-  font-weight: 500;
-  line-height: 1.08;
-  text-wrap: balance;
+  color: var(--olive-dark);
+  font-size: 18px;
 }
 
-.booking-intro p {
-  max-width: 620px;
+.room-booking-head p {
+  max-width: 220px;
   margin: 0;
   color: var(--muted);
-  font-size: 17px;
-}
-
-.booking-form {
-  display: grid;
-  grid-template-columns: minmax(260px, 0.85fr) minmax(340px, 1fr) minmax(300px, 0.78fr);
-  align-items: stretch;
-  gap: clamp(18px, 3vw, 34px);
-  border-top: 1px solid var(--line);
-  padding-top: 28px;
-}
-
-.booking-form label,
-.room-pick,
-.rate-toggle,
-.estimate {
-  min-width: 0;
+  font-size: 13px;
+  text-align: right;
 }
 
 .booking-fields {
@@ -348,8 +324,13 @@ select {
   align-content: start;
 }
 
+.booking-fields label,
+.rate-toggle,
+.estimate {
+  min-width: 0;
+}
+
 .booking-fields label > span,
-.room-pick legend,
 .rate-toggle legend,
 .estimate span {
   display: block;
@@ -359,8 +340,8 @@ select {
   font-weight: 700;
 }
 
-.booking-form input,
-.booking-form select {
+.room-booking-form input,
+.room-booking-form select {
   width: 100%;
   height: 48px;
   border: 1px solid var(--line);
@@ -370,51 +351,8 @@ select {
   padding: 0 12px;
 }
 
-.room-pick {
-  display: grid;
-  gap: 10px;
-  align-content: start;
-  border: 0;
-  padding: 0;
-}
-
-.room-pick label {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 12px;
-  align-items: start;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.62);
-  cursor: pointer;
-}
-
-.room-pick input {
-  width: 16px;
-  height: 16px;
-  margin-top: 4px;
-  accent-color: var(--olive);
-}
-
-.room-pick strong,
-.room-pick small {
-  display: block;
-}
-
-.room-pick small {
-  margin-top: 3px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.room-pick label:has(input:checked) {
-  border-color: rgba(89, 107, 71, 0.58);
-  background: rgba(89, 107, 71, 0.1);
-}
-
-.booking-form input:focus,
-.booking-form select:focus {
+.room-booking-form input:focus,
+.room-booking-form select:focus {
   outline: 2px solid rgba(89, 107, 71, 0.22);
   border-color: rgba(89, 107, 71, 0.6);
 }
@@ -422,8 +360,8 @@ select {
 .rate-toggle {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 6px;
   grid-column: 1 / -1;
+  padding: 8px;
 }
 
 .rate-toggle legend {
@@ -435,7 +373,7 @@ select {
   align-items: center;
   gap: 6px;
   min-height: 34px;
-  margin-right: 8px;
+  margin-right: 10px;
   color: var(--ink);
   font-size: 14px;
 }
@@ -444,6 +382,13 @@ select {
   width: 14px;
   height: 14px;
   accent-color: var(--olive);
+}
+
+.booking-result {
+  display: grid;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
 }
 
 .estimate {
@@ -502,18 +447,9 @@ select {
   color: #7a2929;
 }
 
-.booking-side {
-  display: grid;
-  gap: 16px;
-  align-content: start;
-  border-radius: var(--radius);
-  background: var(--soft);
-  padding: clamp(18px, 2.4vw, 26px);
-}
-
 .booking-policy {
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 
 .booking-policy p {
@@ -562,51 +498,49 @@ select {
 
 .room-grid {
   display: grid;
-  gap: 28px;
+  gap: clamp(38px, 6vw, 76px);
 }
 
 .room-card {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
+  grid-template-columns: minmax(0, 0.95fr) minmax(380px, 0.78fr);
   gap: clamp(22px, 4vw, 48px);
-  align-items: center;
+  align-items: start;
   border-top: 1px solid var(--line);
-  padding-top: 28px;
-}
-
-.room-card.is-selected {
-  border-top-color: rgba(89, 107, 71, 0.74);
-}
-
-.room-card.is-selected .text-link {
-  color: var(--terracotta);
+  padding-top: clamp(24px, 3vw, 36px);
 }
 
 .room-gallery {
   display: grid;
-  grid-template-columns: 1fr 0.32fr;
+  grid-template-columns: minmax(0, 1fr) minmax(92px, 0.3fr);
   gap: 10px;
-  min-height: 430px;
+  align-items: stretch;
+  height: clamp(340px, 32vw, 430px);
+  min-height: 0;
+  overflow: hidden;
 }
 
 .room-main-photo,
 .thumb-row img {
   width: 100%;
   height: 100%;
+  max-height: 100%;
   object-fit: cover;
   background: #ddd8ce;
   filter: brightness(0.98) contrast(1.07) saturate(0.96);
 }
 
 .room-main-photo {
-  aspect-ratio: 1.42 / 1;
+  min-height: 0;
   border-radius: var(--radius);
   object-position: center;
 }
 
 .thumb-row {
   display: grid;
+  grid-template-rows: 1fr 1fr;
   gap: 10px;
+  min-height: 0;
 }
 
 .thumb-row img {
@@ -615,7 +549,7 @@ select {
 }
 
 .room-copy {
-  padding: 10px 0;
+  padding: 4px 0 0;
 }
 
 .room-title-row {
@@ -876,15 +810,9 @@ select {
     display: none;
   }
 
-  .booking-intro,
-  .booking-form,
   .contact-section,
   .transit-layout {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .booking-side {
-    grid-column: 1 / -1;
   }
 
   .room-card {
@@ -945,19 +873,15 @@ select {
     width: 100%;
   }
 
-  .booking-band,
   .section,
   .contact-section {
     width: min(100% - 32px, 1180px);
   }
 
-  .booking-intro,
   .section-heading {
     display: block;
   }
 
-  .booking-intro,
-  .booking-form,
   .booking-fields,
   .contact-section,
   .transit-layout,
@@ -965,26 +889,30 @@ select {
     grid-template-columns: 1fr;
   }
 
-  .booking-form input,
-  .booking-form select {
+  .room-booking-form input,
+  .room-booking-form select {
     height: 50px;
   }
 
-  .booking-form {
-    gap: 20px;
+  .room-booking-head {
+    display: block;
   }
 
-  .booking-side {
-    grid-column: auto;
+  .room-booking-head p {
+    max-width: none;
+    margin-top: 6px;
+    text-align: left;
   }
 
   .room-gallery {
     grid-template-columns: 1fr;
+    height: auto;
     min-height: 0;
   }
 
   .thumb-row {
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
   }
 
   .room-main-photo {

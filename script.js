@@ -1,28 +1,21 @@
 const RATES = {
   normal: 140,
-  holiday: 420,
+  weekend: 160,
+  peak: 420,
 };
 
 const RATE_LABELS = {
   normal: "平日价",
-  holiday: "节假日价",
+  weekend: "周末价",
+  peak: "高峰日价",
 };
 
-const form = document.querySelector("#bookingForm");
-const checkinInput = document.querySelector("#checkin");
-const checkoutInput = document.querySelector("#checkout");
-const guestsInput = document.querySelector("#guests");
-const roomInputs = [...document.querySelectorAll('input[name="room"]')];
-const estimateTotal = document.querySelector("#estimateTotal");
-const estimateMeta = document.querySelector("#estimateMeta");
-const availabilityStatus = document.querySelector("#availabilityStatus");
-const submitButton = document.querySelector(".submit-button");
+const roomForms = [...document.querySelectorAll("[data-room-form]")];
 const header = document.querySelector("[data-header]");
 const dialog = document.querySelector("#requestDialog");
 const requestSummary = document.querySelector("#requestSummary");
 const mapDialog = document.querySelector("#mapDialog");
 const mapAddress = "重庆市渝中区化龙桥翡翠云阶 4 栋 C 座";
-const ROOM_CHOICES = ["喵A", "喵B"];
 
 let availabilityData = null;
 let availabilityLoadFailed = false;
@@ -42,58 +35,57 @@ function addDays(date, days) {
   return next;
 }
 
-function getNightCount() {
-  const start = new Date(checkinInput.value);
-  const end = new Date(checkoutInput.value);
+function getControls(form) {
+  return {
+    checkin: form.querySelector('input[name="checkin"]'),
+    checkout: form.querySelector('input[name="checkout"]'),
+    guests: form.querySelector('select[name="guests"]'),
+    estimateTotal: form.querySelector("[data-estimate-total]"),
+    estimateMeta: form.querySelector("[data-estimate-meta]"),
+    status: form.querySelector("[data-availability-status]"),
+    submit: form.querySelector(".submit-button"),
+  };
+}
+
+function getNightCount(form) {
+  const { checkin, checkout } = getControls(form);
+  const start = new Date(checkin.value);
+  const end = new Date(checkout.value);
   const diff = Math.round((end - start) / (1000 * 60 * 60 * 24));
   return Number.isFinite(diff) && diff > 0 ? diff : 1;
 }
 
-function getRateType() {
+function getRateType(form) {
   return form.querySelector('input[name="rateType"]:checked')?.value || "normal";
 }
 
-function getRoomChoice() {
-  return form.querySelector('input[name="room"]:checked')?.value || "都可以";
-}
-
-function setRoomChoice(room) {
-  const input = roomInputs.find((item) => item.value === room);
-  if (input) input.checked = true;
-  syncRoomCards();
-}
-
-function syncRoomCards() {
-  const selectedRoom = getRoomChoice();
-  document.querySelectorAll("[data-room-choice]").forEach((link) => {
-    link.closest(".room-card")?.classList.toggle("is-selected", link.dataset.roomChoice === selectedRoom);
-  });
-}
-
-function updateEstimate() {
-  const nights = getNightCount();
-  const rateType = getRateType();
+function updateEstimate(form) {
+  const { estimateTotal, estimateMeta } = getControls(form);
+  const nights = getNightCount(form);
+  const rateType = getRateType(form);
   const total = nights * RATES[rateType];
   estimateTotal.textContent = `¥${total}`;
   estimateMeta.textContent = `${nights}晚 · ${RATE_LABELS[rateType]}`;
 }
 
-function setDefaultDates() {
+function setDefaultDates(form) {
+  const { checkin, checkout } = getControls(form);
   const today = new Date();
   const tomorrow = addDays(today, 1);
   const dayAfter = addDays(today, 3);
-  checkinInput.value = toDateValue(tomorrow);
-  checkoutInput.value = toDateValue(dayAfter);
-  checkinInput.min = toDateValue(today);
-  checkoutInput.min = toDateValue(addDays(today, 1));
+  checkin.value = toDateValue(tomorrow);
+  checkout.value = toDateValue(dayAfter);
+  checkin.min = toDateValue(today);
+  checkout.min = toDateValue(addDays(today, 1));
 }
 
-function syncCheckoutMinimum() {
-  if (!checkinInput.value) return;
-  const nextDay = toDateValue(addDays(new Date(checkinInput.value), 1));
-  checkoutInput.min = nextDay;
-  if (!checkoutInput.value || checkoutInput.value <= checkinInput.value) {
-    checkoutInput.value = nextDay;
+function syncCheckoutMinimum(form) {
+  const { checkin, checkout } = getControls(form);
+  if (!checkin.value) return;
+  const nextDay = toDateValue(addDays(new Date(checkin.value), 1));
+  checkout.min = nextDay;
+  if (!checkout.value || checkout.value <= checkin.value) {
+    checkout.value = nextDay;
   }
 }
 
@@ -102,12 +94,13 @@ function formatDate(value) {
   return value.replaceAll("-", ".");
 }
 
-function getSelectedNights() {
-  if (!checkinInput.value || !checkoutInput.value || checkoutInput.value <= checkinInput.value) return [];
+function getSelectedNights(form) {
+  const { checkin, checkout } = getControls(form);
+  if (!checkin.value || !checkout.value || checkout.value <= checkin.value) return [];
 
   const nights = [];
-  let current = parseDateValue(checkinInput.value);
-  const end = parseDateValue(checkoutInput.value);
+  let current = parseDateValue(checkin.value);
+  const end = parseDateValue(checkout.value);
 
   while (current < end) {
     nights.push(toDateValue(current));
@@ -121,24 +114,15 @@ function getBlockedSet(room) {
   return new Set(availabilityData?.roomsAvailability?.[room]?.blockedNights || []);
 }
 
-function getRoomCheck(room, nights) {
-  const blocked = getBlockedSet(room);
-  const blockedNights = nights.filter((night) => blocked.has(night));
-  return {
-    room,
-    available: blockedNights.length === 0,
-    blockedNights,
-  };
-}
+function getAvailabilityCheck(form) {
+  const room = form.dataset.room;
+  const nights = getSelectedNights(form);
 
-function getAvailabilityCheck() {
-  const nights = getSelectedNights();
   if (nights.length === 0) {
     return {
       state: "pending",
       blocksSubmit: false,
       message: "请选择正确的入住和离店日期。",
-      availableRooms: [],
     };
   }
 
@@ -147,7 +131,6 @@ function getAvailabilityCheck() {
       state: "warning",
       blocksSubmit: false,
       message: "房态暂时未能自动读取。可以提交申请，但必须等房东确认后再付款。",
-      availableRooms: [],
     };
   }
 
@@ -156,60 +139,39 @@ function getAvailabilityCheck() {
       state: "loading",
       blocksSubmit: false,
       message: "正在读取最新房态，提交后仍需房东最终确认。",
-      availableRooms: [],
     };
   }
 
-  const roomChoice = getRoomChoice();
-  const checks = ROOM_CHOICES.map((room) => getRoomCheck(room, nights));
-  const availableRooms = checks.filter((check) => check.available).map((check) => check.room);
-  const generatedDate = availabilityData.generatedAt
-    ? new Date(availabilityData.generatedAt).toLocaleString("zh-CN", { hour12: false })
-    : "刚刚";
+  const blocked = getBlockedSet(room);
+  const blockedNights = nights.filter((night) => blocked.has(night));
 
-  if (roomChoice === "都可以") {
-    if (availableRooms.length === 0) {
-      return {
-        state: "blocked",
-        blocksSubmit: true,
-        message: `所选日期两间房都已被占用，请更换日期或直接联系房东。房态更新：${generatedDate}`,
-        availableRooms,
-      };
-    }
-    return {
-      state: "available",
-      blocksSubmit: false,
-      message: `所选日期目前可申请，当前可选：${availableRooms.join("、")}。最终仍以房东确认为准。`,
-      availableRooms,
-    };
-  }
-
-  const selectedCheck = checks.find((check) => check.room === roomChoice);
-  if (!selectedCheck?.available) {
-    const blockedText = selectedCheck.blockedNights.map(formatDate).join("、");
+  if (blockedNights.length > 0) {
     return {
       state: "blocked",
       blocksSubmit: true,
-      message: `${roomChoice} 在 ${blockedText} 已被占用。请选择另一间房、换日期，或联系房东确认。`,
-      availableRooms,
+      message: `${room} 在 ${blockedNights.map(formatDate).join("、")} 已被占用。请选择另一间房、换日期，或联系房东确认。`,
     };
   }
 
   return {
     state: "available",
     blocksSubmit: false,
-    message: `${roomChoice} 所选日期目前可申请。提交后房东会再次核对途家等平台房态，再发送支付二维码。`,
-    availableRooms,
+    message: `${room} 所选日期目前可申请。提交后房东会再次核对途家等平台房态，再发送支付二维码。`,
   };
 }
 
-function updateAvailabilityStatus() {
-  const check = getAvailabilityCheck();
-  availabilityStatus.textContent = check.message;
-  availabilityStatus.dataset.state = check.state;
-  submitButton.disabled = check.blocksSubmit;
-  submitButton.textContent = check.blocksSubmit ? "所选日期不可申请" : "生成预订需求";
+function updateAvailabilityStatus(form) {
+  const { status, submit } = getControls(form);
+  const check = getAvailabilityCheck(form);
+  status.textContent = check.message;
+  status.dataset.state = check.state;
+  submit.disabled = check.blocksSubmit;
+  submit.textContent = check.blocksSubmit ? "所选日期不可申请" : `提交${form.dataset.room}入住申请`;
   return check;
+}
+
+function updateAllAvailabilityStatus() {
+  roomForms.forEach((form) => updateAvailabilityStatus(form));
 }
 
 async function loadAvailability() {
@@ -220,20 +182,12 @@ async function loadAvailability() {
   } catch (error) {
     availabilityLoadFailed = true;
   } finally {
-    updateAvailabilityStatus();
+    updateAllAvailabilityStatus();
   }
 }
 
 document.addEventListener("scroll", () => {
   header.classList.toggle("is-scrolled", window.scrollY > 20);
-});
-
-document.querySelectorAll("[data-room-choice]").forEach((link) => {
-  link.addEventListener("click", (event) => {
-    setRoomChoice(link.dataset.roomChoice);
-    updateEstimate();
-    updateAvailabilityStatus();
-  });
 });
 
 document.querySelectorAll("[data-close-dialog]").forEach((button) => {
@@ -242,42 +196,50 @@ document.querySelectorAll("[data-close-dialog]").forEach((button) => {
   });
 });
 
-form.addEventListener("input", () => {
-  syncCheckoutMinimum();
-  updateEstimate();
-  syncRoomCards();
-  updateAvailabilityStatus();
-});
+roomForms.forEach((form) => {
+  setDefaultDates(form);
+  syncCheckoutMinimum(form);
+  updateEstimate(form);
+  updateAvailabilityStatus(form);
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  syncCheckoutMinimum();
-  updateEstimate();
+  form.addEventListener("input", () => {
+    syncCheckoutMinimum(form);
+    updateEstimate(form);
+    updateAvailabilityStatus(form);
+  });
 
-  const availabilityCheck = updateAvailabilityStatus();
-  if (availabilityCheck.blocksSubmit) {
-    availabilityStatus.scrollIntoView({ behavior: "smooth", block: "center" });
-    return;
-  }
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    syncCheckoutMinimum(form);
+    updateEstimate(form);
 
-  const nights = getNightCount();
-  const rateType = getRateType();
-  const total = nights * RATES[rateType];
-  const summary = [
-    `入住 ${formatDate(checkinInput.value)}，离店 ${formatDate(checkoutInput.value)}`,
-    `${nights}晚，${guestsInput.value}人，房型：${getRoomChoice()}`,
-    `${RATE_LABELS[rateType]} ¥${RATES[rateType]}/晚，预估合计 ¥${total}`,
-    availabilityCheck.availableRooms.length ? `当前可申请房型：${availabilityCheck.availableRooms.join("、")}` : "房态需人工复核",
-    "入住时间为 14:00 后，平日退房 12:00 前，节假日退房 10:00 前",
-    "提交后仍需房东确认房态、价格和入住方式；确认可住后再发送支付二维码。",
-  ].join("。");
+    const availabilityCheck = updateAvailabilityStatus(form);
+    const { checkin, checkout, guests, status } = getControls(form);
+    if (availabilityCheck.blocksSubmit) {
+      status.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
 
-  requestSummary.textContent = summary;
-  if (typeof dialog.showModal === "function") {
-    dialog.showModal();
-  } else {
-    window.alert(summary);
-  }
+    const nights = getNightCount(form);
+    const rateType = getRateType(form);
+    const total = nights * RATES[rateType];
+    const room = form.dataset.room;
+    const summary = [
+      `入住 ${formatDate(checkin.value)}，离店 ${formatDate(checkout.value)}`,
+      `${nights}晚，${guests.value}人，房型：${room}`,
+      `${RATE_LABELS[rateType]} ¥${RATES[rateType]}/晚，预估合计 ¥${total}`,
+      "周末为单独价格档，不按高峰日计算",
+      "入住时间为 14:00 后，平日和周末退房 12:00 前，高峰日退房 10:00 前",
+      "提交后仍需房东确认房态、价格和入住方式；确认可住后再发送支付二维码。",
+    ].join("。");
+
+    requestSummary.textContent = summary;
+    if (typeof dialog.showModal === "function") {
+      dialog.showModal();
+    } else {
+      window.alert(summary);
+    }
+  });
 });
 
 function getMapLinks() {
@@ -335,10 +297,5 @@ document.querySelector("[data-copy-address]")?.addEventListener("click", async (
   }
 });
 
-setDefaultDates();
-syncCheckoutMinimum();
-updateEstimate();
-syncRoomCards();
-updateAvailabilityStatus();
 refreshMapLinks();
 loadAvailability();
