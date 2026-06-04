@@ -1,0 +1,14 @@
+{
+  "sources": [
+    {
+      "room": "喵A",
+      "source": "tujia",
+      "url": "https://example.com/miao-a-calendar.ics"
+    },
+    {
+      "room": "喵B",
+      "source": "tujia",
+      "url": "https://example.com/miao-b-calendar.ics"
+    }
+  ]
+}

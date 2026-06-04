@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-04T01:39:22.026Z",
+  "timezone": "Asia/Shanghai",
+  "validFrom": "2026-06-04",
+  "validTo": "2027-01-30",
+  "rooms": [
+    "喵A",
+    "喵B"
+  ],
+  "policy": {
+    "payment": "客人提交入住申请后，房东确认日期可住，再通过邮箱或微信发送支付宝/微信支付二维码。",
+    "cancellation": "入住日前3天及以前可免费取消；不足3天取消，扣除订单金额50%。",
+    "finalConfirmation": "房态以房东最终确认和途家等平台实时订单为准。"
+  },
+  "roomsAvailability": {
+    "喵A": {
+      "blockedNights": [],
+      "blockedRanges": []
+    },
+    "喵B": {
+      "blockedNights": [],
+      "blockedRanges": []
+    }
+  }
+}

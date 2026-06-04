@@ -1,0 +1,39 @@
+name: Update availability
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "18 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-availability:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Prepare private calendar sources
+        env:
+          CALENDAR_SOURCES_JSON: ${{ secrets.CALENDAR_SOURCES_JSON }}
+        run: |
+          if [ -n "$CALENDAR_SOURCES_JSON" ]; then
+            mkdir -p private
+            printf '%s' "$CALENDAR_SOURCES_JSON" > private/calendar-sources.json
+          fi
+      - name: Generate public availability
+        run: node tools/update-availability.mjs
+      - name: Commit availability changes
+        run: |
+          if git diff --quiet -- data/availability.json; then
+            echo "No availability changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/availability.json
+          git commit -m "Update availability"
+          git push

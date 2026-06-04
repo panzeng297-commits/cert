@@ -388,6 +388,41 @@ select {
   white-space: nowrap;
 }
 
+.submit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+  transform: none;
+}
+
+.availability-status {
+  grid-column: 1 / -1;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 12px 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.availability-status[data-state="available"] {
+  border-color: rgba(89, 107, 71, 0.28);
+  background: rgba(89, 107, 71, 0.08);
+  color: var(--olive-dark);
+}
+
+.availability-status[data-state="warning"],
+.availability-status[data-state="pending"] {
+  border-color: rgba(162, 87, 61, 0.24);
+  background: rgba(162, 87, 61, 0.08);
+  color: #77472f;
+}
+
+.availability-status[data-state="blocked"] {
+  border-color: rgba(160, 49, 49, 0.24);
+  background: rgba(160, 49, 49, 0.08);
+  color: #7a2929;
+}
+
 .booking-note {
   margin: 0;
   color: var(--muted);
@@ -697,7 +732,7 @@ select {
 
 .rules-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 18px;
 }
 
@@ -787,6 +822,13 @@ select {
 
 .request-dialog p:not(.eyebrow) {
   color: var(--muted);
+}
+
+.request-dialog .dialog-note {
+  border-top: 1px solid var(--line);
+  margin-top: 18px;
+  padding-top: 16px;
+  font-size: 14px;
 }
 
 .dialog-actions {

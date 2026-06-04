@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "availability:update": "node tools/update-availability.mjs",
+    "availability:list": "node tools/update-availability.mjs list"
+  }
+}

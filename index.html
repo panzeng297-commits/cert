@@ -61,7 +61,7 @@
       <section class="booking-band" id="booking" aria-labelledby="booking-title">
         <div class="booking-intro">
           <p class="eyebrow">BOOKING REQUEST</p>
-          <h2 id="booking-title">先提交需求，房东确认后再付款</h2>
+          <h2 id="booking-title">先提交申请，确认可住后再付款</h2>
         </div>
         <form class="booking-form" id="bookingForm">
           <label>
@@ -103,10 +103,13 @@
             <strong id="estimateTotal">¥280</strong>
             <small id="estimateMeta">2晚 · 平日价</small>
           </div>
+          <div class="availability-status" id="availabilityStatus" data-state="loading" aria-live="polite">
+            正在读取最新房态，提交后仍需房东最终确认。
+          </div>
           <button class="button primary submit-button" type="submit">生成预订需求</button>
         </form>
         <p class="booking-note">
-          页面暂不接入在线支付。实际可订日期、房型、入住时间和节假日价格，以房东确认信息为准。
+          页面仅生成入住申请，不自动锁房、不自动扣款。房东确认途家等平台未占用后，再通过邮箱或微信发送支付宝/微信支付二维码。
         </p>
       </section>
 
@@ -233,7 +236,7 @@
             </div>
             <div>
               <h3>确认流程</h3>
-              <p>提交入住需求后，房东确认日期、房型、价格和入住方式，再进行支付或到店支付。</p>
+              <p>提交入住需求后，房东确认日期、房型、价格和入住方式；确认可住后，再发送支付二维码或约定到店支付。</p>
             </div>
           </div>
         </div>
@@ -311,7 +314,15 @@
         <div class="rules-grid">
           <article>
             <h3>预订确认</h3>
-            <p>页面提交的是预订需求，不代表自动锁房。房东确认后才算预订成立。</p>
+            <p>页面提交的是入住申请，不代表自动锁房。房东确认房态可住，并完成付款或约定到店支付后，预订才算成立。</p>
+          </article>
+          <article>
+            <h3>付款方式</h3>
+            <p>确认可住后，房东通过邮箱或微信发送支付宝/微信支付二维码；本页面暂不直接收款。</p>
+          </article>
+          <article>
+            <h3>退订规则</h3>
+            <p>入住日前 3 天及以前可免费取消；不足 3 天取消，扣除订单金额 50%。</p>
           </article>
           <article>
             <h3>节假日价格</h3>
@@ -364,6 +375,9 @@
       <p class="eyebrow">REQUEST CREATED</p>
       <h2 id="dialogTitle">预订需求已生成</h2>
       <p id="requestSummary"></p>
+      <p class="dialog-note">
+        这不是自动成交订单。房东确认入住日期可住后，再通过邮箱或微信发送支付二维码。入住日前 3 天及以前免费取消，不足 3 天取消扣 50%。
+      </p>
       <div class="dialog-actions">
         <button class="button primary" type="button" data-close-dialog>继续查看页面</button>
         <a class="button secondary" href="#contact" data-close-dialog>查看联系方式</a>
