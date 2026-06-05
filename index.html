@@ -23,7 +23,16 @@
       <nav class="main-nav" aria-label="主导航">
         <a href="#rooms">房型预订</a>
         <a href="#transit">交通</a>
-        <a href="#contact">联系</a>
+        <div class="nav-contact" id="contact">
+          <button class="nav-contact-trigger" type="button" aria-expanded="false">联系</button>
+          <div class="header-contact-card" aria-label="房东联系方式">
+            <span>房东联系方式</span>
+            <strong>微信：y502615718</strong>
+            <a href="tel:13594058840">电话：135 9405 8840</a>
+            <a href="mailto:502615718@qq.com">邮箱：502615718@qq.com</a>
+            <p>地址：重庆市渝中区化龙桥翡翠云阶 4 栋 C 座</p>
+          </div>
+        </div>
       </nav>
       <a class="nav-cta" href="#rooms">查看房型</a>
     </header>
@@ -39,8 +48,8 @@
           <p class="eyebrow">CHONGQING HOMESTAY</p>
           <h1 id="hero-title">在重庆，住进一间有质感的城市小宅。</h1>
           <p class="hero-copy">
-            中文版先把订房链路做清楚：每间房型都能直接填日期、核算价格、提交入住需求。
-            房东确认日期可住后，再发送支付二维码。
+            喵Stay 位于重庆渝中区化龙桥翡翠云阶，适合 1-2 人短住、周末来重庆、临时办公，或在山城老城区附近慢慢走走。
+            房源靠近轨道 9 号线化龙桥站，旁边就是山城步道体系的一段，步行可到重庆天地和嘉陵江滨江一带。
           </p>
           <div class="hero-actions">
             <a class="button primary" href="#rooms">查看房型并预订</a>
@@ -82,10 +91,19 @@
                   <span>更适合</span>
                   <strong>安静休息、看投影、短住洗衣</strong>
                 </div>
-                <div>
-                  <span>确认重点</span>
-                  <strong>入住日期确认后再付款</strong>
-                </div>
+              </div>
+              <div class="room-info-panel">
+                <p>
+                  更适合想安静休息、看投影、自己简单洗衣做水吧的客人。带独立卫浴、小厨房、洗衣机、投影、Wi-Fi 和空调。
+                </p>
+                <ul class="amenities" aria-label="喵A设施">
+                  <li>独立卫浴</li>
+                  <li>小厨房</li>
+                  <li>洗衣机</li>
+                  <li>投影</li>
+                  <li>Wi-Fi</li>
+                  <li>空调</li>
+                </ul>
               </div>
               <div class="room-stay-rules" aria-label="喵A预订规则">
                 <p><strong>支付</strong> 确认可住后，再通过邮箱或微信发送支付宝/微信支付二维码，也可约定到店支付。</p>
@@ -100,19 +118,6 @@
                   <h3>喵A · 投影休息房</h3>
                 </div>
                 <strong>¥140 起/晚</strong>
-              </div>
-              <div class="room-info-panel">
-                <p>
-                  更适合想安静休息、看投影、自己简单洗衣做水吧的客人。带独立卫浴、小厨房、洗衣机、投影、Wi-Fi 和空调。
-                </p>
-                <ul class="amenities" aria-label="喵A设施">
-                  <li>独立卫浴</li>
-                  <li>小厨房</li>
-                  <li>洗衣机</li>
-                  <li>投影</li>
-                  <li>Wi-Fi</li>
-                  <li>空调</li>
-                </ul>
               </div>
               <form class="room-booking-form" data-room-form data-room="喵A">
                 <div class="room-booking-head">
@@ -182,10 +187,19 @@
                   <span>更适合</span>
                   <strong>窗边采光、空间观感、轻量办公</strong>
                 </div>
-                <div>
-                  <span>确认重点</span>
-                  <strong>先查途家等平台房态</strong>
-                </div>
+              </div>
+              <div class="room-info-panel">
+                <p>
+                  更适合希望空间观感更开阔、喜欢窗边采光和轻量办公区的客人。带独立卫浴、小厨房、洗衣机、投影、Wi-Fi 和空调。
+                </p>
+                <ul class="amenities" aria-label="喵B设施">
+                  <li>独立卫浴</li>
+                  <li>小厨房</li>
+                  <li>洗衣机</li>
+                  <li>投影</li>
+                  <li>Wi-Fi</li>
+                  <li>空调</li>
+                </ul>
               </div>
               <div class="room-stay-rules" aria-label="喵B预订规则">
                 <p><strong>支付</strong> 确认可住后，再通过邮箱或微信发送支付宝/微信支付二维码，也可约定到店支付。</p>
@@ -200,19 +214,6 @@
                   <h3>喵B · 采光大床房</h3>
                 </div>
                 <strong>¥140 起/晚</strong>
-              </div>
-              <div class="room-info-panel">
-                <p>
-                  更适合希望空间观感更开阔、喜欢窗边采光和轻量办公区的客人。带独立卫浴、小厨房、洗衣机、投影、Wi-Fi 和空调。
-                </p>
-                <ul class="amenities" aria-label="喵B设施">
-                  <li>独立卫浴</li>
-                  <li>小厨房</li>
-                  <li>洗衣机</li>
-                  <li>投影</li>
-                  <li>Wi-Fi</li>
-                  <li>空调</li>
-                </ul>
               </div>
               <form class="room-booking-form" data-room-form data-room="喵B">
                 <div class="room-booking-head">
@@ -264,51 +265,6 @@
                 </div>
               </form>
             </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section listing-section" id="facilities" aria-labelledby="facilities-title">
-        <div class="about-listing">
-          <h2>关于喵Stay 重庆</h2>
-          <p>
-            喵Stay 位于重庆渝中区化龙桥翡翠云阶，适合 1-2 人短住、周末来重庆、临时办公或在山城老城区附近慢慢走走。
-            房源靠近轨道 9 号线化龙桥站，旁边就是山城步道体系的一段，步行可到重庆天地和嘉陵江滨江一带。
-          </p>
-          <p>
-            中文版页面只做订房确认：你先选择喵A或喵B，填写入住日期和退房日期，页面核算预估价格。
-            房东确认途家等平台没有占用后，再发送支付宝或微信支付二维码，也可以约定到店支付。
-          </p>
-        </div>
-
-        <div class="section-heading narrow">
-          <h2 id="facilities-title">房源设施</h2>
-          <p>页面只写已确认会提供的基础设施，避免住客到店后预期落差。</p>
-        </div>
-        <div class="facility-grid" aria-label="房源设施列表">
-          <article>
-            <span>Wi-Fi</span>
-            <p>适合短住期间通讯、查路线和轻量办公。</p>
-          </article>
-          <article>
-            <span>空调</span>
-            <p>重庆夏季湿热，入住前可确认使用状态。</p>
-          </article>
-          <article>
-            <span>投影</span>
-            <p>适合晚上休息看电影，实际片源以房间设备为准。</p>
-          </article>
-          <article>
-            <span>独立卫浴</span>
-            <p>房内独立使用，包含基础淋浴和洗漱空间。</p>
-          </article>
-          <article>
-            <span>小厨房</span>
-            <p>适合简单加热、冲饮和短住轻食，不建议重油烟烹饪。</p>
-          </article>
-          <article>
-            <span>洗衣机</span>
-            <p>适合连住和轻量清洗衣物，使用方式入住时确认。</p>
           </article>
         </div>
       </section>
@@ -410,34 +366,6 @@
         </div>
       </section>
 
-      <section class="contact-section" id="contact" aria-labelledby="contact-title">
-        <div>
-          <h2 id="contact-title">需要确认房态时，直接联系房东</h2>
-          <p>
-            推荐先添加微信确认日期、房型、入住时间和付款方式。页面提交需求后，也可以通过电话或邮箱补充说明。
-          </p>
-        </div>
-        <div class="contact-panel">
-          <span>房东联系方式</span>
-          <strong>微信：y502615718</strong>
-          <div class="contact-list" aria-label="房东联系方式">
-            <a href="tel:13594058840">
-              <span>电话</span>
-              <b>135 9405 8840</b>
-            </a>
-            <a href="mailto:502615718@qq.com">
-              <span>邮箱</span>
-              <b>502615718@qq.com</b>
-            </a>
-            <div>
-              <span>位置</span>
-              <b>重庆市渝中区化龙桥翡翠云阶 4 栋 C 座</b>
-            </div>
-          </div>
-          <p class="contact-disclaimer">房号和入住方式建议在确认预订后发送给住客。</p>
-          <a class="button primary" href="#rooms">返回房型选择</a>
-        </div>
-      </section>
     </main>
 
     <dialog class="map-dialog" id="mapDialog" aria-labelledby="mapDialogTitle">
@@ -476,7 +404,7 @@
       </p>
       <div class="dialog-actions">
         <button class="button primary" type="button" data-close-dialog>继续查看页面</button>
-        <a class="button secondary" href="#contact" data-close-dialog>查看联系方式</a>
+        <a class="button secondary" href="tel:13594058840" data-close-dialog>电话联系房东</a>
       </div>
     </dialog>
 

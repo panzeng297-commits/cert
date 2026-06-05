@@ -51,8 +51,7 @@ a {
   text-decoration: none;
 }
 
-section[id],
-.contact-section {
+section[id] {
   scroll-margin-top: 86px;
 }
 
@@ -124,6 +123,7 @@ select {
 
 .main-nav {
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: 28px;
   color: currentColor;
@@ -131,14 +131,95 @@ select {
 }
 
 .main-nav a,
+.nav-contact-trigger,
 .nav-cta {
   opacity: 0.86;
   transition: opacity 160ms ease;
 }
 
 .main-nav a:hover,
+.nav-contact:hover .nav-contact-trigger,
+.nav-contact:focus-within .nav-contact-trigger,
 .nav-cta:hover {
   opacity: 1;
+}
+
+.nav-contact {
+  position: relative;
+}
+
+.nav-contact-trigger {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.header-contact-card {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 16px);
+  left: 50%;
+  width: min(360px, calc(100vw - 32px));
+  border: 1px solid rgba(32, 35, 31, 0.12);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  padding: 18px;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.nav-contact:hover .header-contact-card,
+.nav-contact:focus-within .header-contact-card {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.header-contact-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -18px;
+  height: 18px;
+}
+
+.header-contact-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.header-contact-card strong {
+  display: block;
+  margin: 8px 0 14px;
+  font-size: 18px;
+}
+
+.header-contact-card a,
+.header-contact-card p {
+  display: block;
+  border-top: 1px solid var(--line);
+  margin: 0;
+  padding: 10px 0 0;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.header-contact-card a + a,
+.header-contact-card a + p {
+  margin-top: 10px;
 }
 
 .nav-cta {
@@ -262,8 +343,7 @@ select {
   color: var(--white);
 }
 
-.request-dialog .button.secondary,
-.contact-panel .button.secondary {
+.request-dialog .button.secondary {
   border-color: var(--line);
   color: var(--ink);
 }
@@ -287,7 +367,7 @@ select {
 .room-booking-form {
   display: grid;
   gap: 14px;
-  margin-top: 24px;
+  margin-top: 16px;
   border: 1px solid rgba(32, 35, 31, 0.12);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.92);
@@ -482,16 +562,14 @@ select {
   max-width: 620px;
 }
 
-.section-heading h2,
-.contact-section h2 {
+.section-heading h2 {
   margin: 0;
   font-size: clamp(32px, 4vw, 56px);
   font-weight: 500;
   line-height: 1.1;
 }
 
-.section-heading p:not(.eyebrow),
-.contact-section p {
+.section-heading p:not(.eyebrow) {
   margin: 0;
   color: var(--muted);
   font-size: 17px;
@@ -657,15 +735,21 @@ select {
   border: 1px solid rgba(32, 35, 31, 0.11);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.44);
-  margin-bottom: 16px;
-  padding: 16px;
+  padding: 14px;
+}
+
+.room-info-panel p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
 }
 
 .amenities {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 18px 0 0;
+  margin: 14px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -679,45 +763,17 @@ select {
   font-size: 13px;
 }
 
-.facility-grid,
 .notice-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
 
-.about-listing {
-  max-width: 760px;
-  border-top: 1px solid var(--line);
-  margin-bottom: clamp(42px, 6vw, 70px);
-  padding-top: 28px;
-}
-
-.about-listing h2 {
-  margin: 0 0 18px;
-  font-size: clamp(28px, 3vw, 42px);
-  font-weight: 600;
-  line-height: 1.15;
-}
-
-.about-listing p {
-  margin: 0;
-  color: var(--ink);
-  font-size: 17px;
-  line-height: 1.85;
-}
-
-.about-listing p + p {
-  margin-top: 14px;
-}
-
-.facility-grid article,
 .notice-grid article {
   border-top: 1px solid var(--line);
   padding: 18px 4px 0;
 }
 
-.facility-grid span,
 .notice-grid span {
   display: block;
   margin-bottom: 8px;
@@ -726,7 +782,6 @@ select {
   font-weight: 800;
 }
 
-.facility-grid p,
 .notice-grid p {
   margin: 0;
   color: var(--muted);
@@ -841,64 +896,6 @@ select {
 
 .map-button {
   margin-top: 18px;
-}
-
-.contact-section {
-  width: min(1180px, calc(100% - 40px));
-  margin: clamp(82px, 9vw, 132px) auto 0;
-  display: grid;
-  grid-template-columns: 1fr minmax(320px, 0.55fr);
-  gap: clamp(24px, 5vw, 70px);
-  align-items: center;
-  border-top: 1px solid var(--line);
-  padding: clamp(50px, 7vw, 90px) 0;
-}
-
-.contact-panel {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--white);
-  padding: 28px;
-}
-
-.contact-panel span {
-  display: block;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.contact-panel strong {
-  display: block;
-  margin: 10px 0 24px;
-  font-size: 20px;
-}
-
-.contact-list {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.contact-list a,
-.contact-list div {
-  display: grid;
-  gap: 4px;
-  border-top: 1px solid var(--line);
-  padding-top: 12px;
-}
-
-.contact-list b {
-  color: var(--ink);
-  font-size: 15px;
-  font-weight: 700;
-  overflow-wrap: anywhere;
-}
-
-.contact-disclaimer {
-  margin: 0 0 22px;
-  color: var(--muted);
-  font-size: 13px;
 }
 
 .request-dialog,
@@ -1045,14 +1042,29 @@ select {
 
 @media (max-width: 1040px) {
   .site-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
   }
 
   .main-nav {
+    justify-content: end;
+    gap: 16px;
+  }
+
+  .main-nav > a {
     display: none;
   }
 
-  .contact-section,
+  .header-contact-card {
+    left: auto;
+    right: 0;
+    transform: translate(0, 8px);
+  }
+
+  .nav-contact:hover .header-contact-card,
+  .nav-contact:focus-within .header-contact-card {
+    transform: translate(0, 0);
+  }
+
   .transit-layout {
     grid-template-columns: 1fr 1fr;
   }
@@ -1069,7 +1081,6 @@ select {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .facility-grid,
   .notice-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1124,8 +1135,7 @@ select {
     width: 100%;
   }
 
-  .section,
-  .contact-section {
+  .section {
     width: min(100% - 32px, 1180px);
   }
 
@@ -1134,13 +1144,11 @@ select {
   }
 
   .booking-fields,
-  .contact-section,
   .transit-layout,
   .location-summary,
   .route-grid,
   .room-side-notes,
   .room-stay-rules,
-  .facility-grid,
   .notice-grid {
     grid-template-columns: 1fr;
   }
