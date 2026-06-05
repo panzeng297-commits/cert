@@ -169,8 +169,10 @@ function getAvailabilityCheck(form) {
 function updateAvailabilityStatus(form) {
   const { status, submit } = getControls(form);
   const check = getAvailabilityCheck(form);
-  status.textContent = check.message;
-  status.dataset.state = check.state;
+  if (status) {
+    status.textContent = check.message;
+    status.dataset.state = check.state;
+  }
   submit.disabled = check.blocksSubmit;
   submit.textContent = check.blocksSubmit ? "所选日期不可申请" : `提交${form.dataset.room}入住申请`;
   return check;
@@ -222,7 +224,11 @@ roomForms.forEach((form) => {
     const availabilityCheck = updateAvailabilityStatus(form);
     const { checkin, checkout, guests, status } = getControls(form);
     if (availabilityCheck.blocksSubmit) {
-      status.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (status) {
+        status.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else {
+        window.alert(availabilityCheck.message);
+      }
       return;
     }
 

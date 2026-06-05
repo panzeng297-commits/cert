@@ -500,34 +500,6 @@ select {
   transform: none;
 }
 
-.availability-status {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.7);
-  padding: 12px 14px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.availability-status[data-state="available"] {
-  border-color: rgba(89, 107, 71, 0.28);
-  background: rgba(89, 107, 71, 0.08);
-  color: var(--olive-dark);
-}
-
-.availability-status[data-state="warning"],
-.availability-status[data-state="pending"] {
-  border-color: rgba(162, 87, 61, 0.24);
-  background: rgba(162, 87, 61, 0.08);
-  color: #77472f;
-}
-
-.availability-status[data-state="blocked"] {
-  border-color: rgba(160, 49, 49, 0.24);
-  background: rgba(160, 49, 49, 0.08);
-  color: #7a2929;
-}
-
 .booking-policy {
   display: grid;
   gap: 8px;
@@ -675,29 +647,6 @@ select {
 
 .thumb-row img[src*="room-b-wide"] {
   object-position: 50% 72%;
-}
-
-.room-stay-rules {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  border: 1px solid rgba(32, 35, 31, 0.11);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.42);
-  padding: 14px;
-}
-
-.room-stay-rules p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.55;
-}
-
-.room-stay-rules strong {
-  display: block;
-  margin-bottom: 4px;
-  color: var(--ink);
 }
 
 .room-copy {
@@ -891,16 +840,6 @@ select {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
-}
-
-.transit-note {
-  margin: 18px 0 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.map-button {
-  margin-top: 18px;
 }
 
 .request-dialog,
@@ -1152,7 +1091,6 @@ select {
   .transit-layout,
   .location-summary,
   .route-grid,
-  .room-stay-rules,
   .notice-grid {
     grid-template-columns: 1fr;
   }
