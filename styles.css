@@ -557,6 +557,10 @@ select {
   margin-bottom: 34px;
 }
 
+.section-heading:not(:has(p:not(.eyebrow))) {
+  display: block;
+}
+
 .section-heading.narrow {
   display: block;
   max-width: 620px;
@@ -641,39 +645,36 @@ select {
   background: #ddd8ce;
 }
 
-.room-side-notes {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+.thumb-row img[src*="room-a-angle"] {
+  object-position: 48% 62%;
 }
 
-.room-side-notes div {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  border: 1px solid rgba(32, 35, 31, 0.11);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.46);
-  padding: 11px 13px;
+.thumb-row img[src*="room-a-bath"] {
+  object-position: 50% 76%;
 }
 
-.room-side-notes span,
-.room-side-notes strong {
-  display: block;
+.thumb-row img[src*="room-a-lounge"] {
+  object-position: 46% 55%;
 }
 
-.room-side-notes span {
-  flex: 0 0 auto;
-  margin-bottom: 0;
-  color: var(--olive);
-  font-size: 12px;
-  font-weight: 800;
+.thumb-row img[src*="room-a-wide"] {
+  object-position: 55% 70%;
 }
 
-.room-side-notes strong {
-  color: var(--ink);
-  font-size: 14px;
-  line-height: 1.35;
+.thumb-row img[src*="room-b-lounge"] {
+  object-position: 54% 62%;
+}
+
+.thumb-row img[src*="room-b-bath"] {
+  object-position: 52% 58%;
+}
+
+.thumb-row img[src*="room-b-window"] {
+  object-position: 48% 70%;
+}
+
+.thumb-row img[src*="room-b-wide"] {
+  object-position: 50% 72%;
 }
 
 .room-stay-rules {
@@ -786,6 +787,10 @@ select {
   margin: 0;
   color: var(--muted);
   font-size: 15px;
+}
+
+.notice-section {
+  padding-bottom: clamp(64px, 8vw, 120px);
 }
 
 .text-link {
@@ -1147,7 +1152,6 @@ select {
   .transit-layout,
   .location-summary,
   .route-grid,
-  .room-side-notes,
   .room-stay-rules,
   .notice-grid {
     grid-template-columns: 1fr;

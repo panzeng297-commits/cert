@@ -162,7 +162,7 @@ function getAvailabilityCheck(form) {
   return {
     state: "available",
     blocksSubmit: false,
-    message: `${room} 所选日期目前可申请。提交后房东会再次确认房态，再发送支付二维码。`,
+    message: "日期已填写，可提交入住申请。",
   };
 }
 
