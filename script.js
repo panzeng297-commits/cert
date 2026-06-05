@@ -15,6 +15,12 @@ const header = document.querySelector("[data-header]");
 const dialog = document.querySelector("#requestDialog");
 const requestSummary = document.querySelector("#requestSummary");
 const mapDialog = document.querySelector("#mapDialog");
+const photoDialog = document.querySelector("#photoDialog");
+const photoDialogImage = document.querySelector("[data-photo-dialog-image]");
+const photoDialogCaption = document.querySelector("[data-photo-dialog-caption]");
+const photoHoverPreview = document.querySelector("[data-photo-hover-preview]");
+const photoHoverImage = document.querySelector("[data-photo-hover-image]");
+const photoHoverCaption = document.querySelector("[data-photo-hover-caption]");
 const mapAddress = "重庆市渝中区化龙桥翡翠云阶 4 栋 C 座";
 
 let availabilityData = null;
@@ -294,6 +300,78 @@ document.querySelector("[data-copy-address]")?.addEventListener("click", async (
     event.currentTarget.textContent = "已复制地址";
   } catch (error) {
     window.prompt("复制地址", mapAddress);
+  }
+});
+
+function openPhotoDialog(image) {
+  const fullImage = image.dataset.full || image.currentSrc || image.src;
+  const caption = image.dataset.caption || image.alt || "房间照片";
+  photoDialogImage.src = fullImage;
+  photoDialogImage.alt = caption;
+  photoDialogCaption.textContent = caption;
+
+  if (typeof photoDialog?.showModal === "function") {
+    photoDialog.showModal();
+  } else {
+    window.open(fullImage, "_blank", "noopener");
+  }
+}
+
+function positionPhotoHoverPreview(sourceImage) {
+  if (!photoHoverPreview) return;
+  const sourceRect = sourceImage.getBoundingClientRect();
+  const previewRect = photoHoverPreview.getBoundingClientRect();
+  const margin = 18;
+  const spaceRight = window.innerWidth - sourceRect.right;
+  const placeRight = spaceRight >= previewRect.width + margin;
+  let left = placeRight ? sourceRect.right + margin : sourceRect.left - previewRect.width - margin;
+  let top = sourceRect.top + sourceRect.height / 2 - previewRect.height / 2;
+
+  left = Math.max(margin, Math.min(left, window.innerWidth - previewRect.width - margin));
+  top = Math.max(margin, Math.min(top, window.innerHeight - previewRect.height - margin));
+
+  photoHoverPreview.style.transform = `translate3d(${Math.round(left)}px, ${Math.round(top)}px, 0) scale(1)`;
+}
+
+function showPhotoHoverPreview(image) {
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  const fullImage = image.dataset.full || image.currentSrc || image.src;
+  const caption = image.dataset.caption || image.alt || "房间照片";
+  photoHoverImage.src = fullImage;
+  photoHoverImage.alt = caption;
+  photoHoverCaption.textContent = caption;
+  photoHoverPreview.classList.add("is-visible");
+  requestAnimationFrame(() => positionPhotoHoverPreview(image));
+}
+
+function hidePhotoHoverPreview() {
+  if (!photoHoverPreview) return;
+  photoHoverPreview.classList.remove("is-visible");
+  photoHoverPreview.style.transform = "translate3d(-9999px, -9999px, 0) scale(0.98)";
+}
+
+document.querySelectorAll("[data-gallery-image]").forEach((image) => {
+  image.addEventListener("mouseenter", () => showPhotoHoverPreview(image));
+  image.addEventListener("mousemove", () => positionPhotoHoverPreview(image));
+  image.addEventListener("mouseleave", hidePhotoHoverPreview);
+  image.addEventListener("focus", () => showPhotoHoverPreview(image));
+  image.addEventListener("blur", hidePhotoHoverPreview);
+  image.addEventListener("click", () => openPhotoDialog(image));
+  image.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openPhotoDialog(image);
+    }
+  });
+});
+
+document.querySelector("[data-close-photo]")?.addEventListener("click", () => {
+  photoDialog.close();
+});
+
+photoDialog?.addEventListener("click", (event) => {
+  if (event.target === photoDialog) {
+    photoDialog.close();
   }
 });
 

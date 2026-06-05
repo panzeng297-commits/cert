@@ -69,12 +69,12 @@
           <article class="room-card">
             <div class="room-media">
               <div class="room-gallery">
-                <img class="room-main-photo" src="assets/room-a-main.jpg" alt="喵A房间床铺和窗边休息区" />
-                <div class="thumb-row" aria-hidden="true">
-                  <img src="assets/room-a-angle.jpg" alt="" />
-                  <img src="assets/room-a-bath.jpg" alt="" />
-                  <img src="assets/room-a-lounge.jpg" alt="" />
-                  <img src="assets/room-a-wide.jpg" alt="" />
+                <img class="room-main-photo" src="assets/room-a-main.jpg" alt="喵A房间床铺和窗边休息区" data-gallery-image data-full="assets/room-a-main-full.jpg" data-caption="喵A · 房间主视角" tabindex="0" />
+                <div class="thumb-row">
+                  <img src="assets/room-a-angle.jpg" alt="喵A床铺和小厨房角度" data-gallery-image data-full="assets/room-a-angle-full.jpg" data-caption="喵A · 床铺和小厨房角度" tabindex="0" />
+                  <img src="assets/room-a-bath.jpg" alt="喵A独立卫浴" data-gallery-image data-full="assets/room-a-bath-full.jpg" data-caption="喵A · 独立卫浴" tabindex="0" />
+                  <img src="assets/room-a-lounge.jpg" alt="喵A窗边休息区" data-gallery-image data-full="assets/room-a-lounge-full.jpg" data-caption="喵A · 窗边休息区" tabindex="0" />
+                  <img src="assets/room-a-wide.jpg" alt="喵A房间全景角度" data-gallery-image data-full="assets/room-a-wide-full.jpg" data-caption="喵A · 房间全景角度" tabindex="0" />
                 </div>
               </div>
               <div class="room-side-notes" aria-label="喵A房间补充信息">
@@ -167,12 +167,12 @@
           <article class="room-card">
             <div class="room-media">
               <div class="room-gallery">
-                <img class="room-main-photo" src="assets/room-b-main.jpg" alt="喵B房间床铺和窗边采光" />
-                <div class="thumb-row" aria-hidden="true">
-                  <img src="assets/room-b-lounge.jpg" alt="" />
-                  <img src="assets/room-b-bath.jpg" alt="" />
-                  <img src="assets/room-b-window.jpg" alt="" />
-                  <img src="assets/room-b-wide.jpg" alt="" />
+                <img class="room-main-photo" src="assets/room-b-main.jpg" alt="喵B房间床铺和窗边采光" data-gallery-image data-full="assets/room-b-main-full.jpg" data-caption="喵B · 房间主视角" tabindex="0" />
+                <div class="thumb-row">
+                  <img src="assets/room-b-lounge.jpg" alt="喵B床边休息区和小厨房" data-gallery-image data-full="assets/room-b-lounge-full.jpg" data-caption="喵B · 床边休息区和小厨房" tabindex="0" />
+                  <img src="assets/room-b-bath.jpg" alt="喵B独立卫浴" data-gallery-image data-full="assets/room-b-bath-full.jpg" data-caption="喵B · 独立卫浴" tabindex="0" />
+                  <img src="assets/room-b-window.jpg" alt="喵B窗边采光角度" data-gallery-image data-full="assets/room-b-window-full.jpg" data-caption="喵B · 窗边采光角度" tabindex="0" />
+                  <img src="assets/room-b-wide.jpg" alt="喵B房间全景和办公区" data-gallery-image data-full="assets/room-b-wide-full.jpg" data-caption="喵B · 房间全景和办公区" tabindex="0" />
                 </div>
               </div>
               <div class="room-side-notes" aria-label="喵B房间补充信息">
@@ -322,7 +322,7 @@
           <div>
             <span>完整地址</span>
             <h3>重庆市渝中区化龙桥翡翠云阶 4 栋 C 座</h3>
-            <p>确认预订后再发送具体房号、门禁和入住方式。手机上点击导航按钮，可选择高德、百度或腾讯地图。</p>
+            <p>确认预订后再发送从化龙桥站到楼栋的详细步行指引、具体房号、门禁和入住方式。手机上点击导航按钮，可选择高德、百度或腾讯地图。</p>
           </div>
           <button class="button primary" type="button" data-open-map>打开地图导航</button>
         </div>
@@ -448,6 +448,19 @@
       </div>
       <p class="map-help">手机上会优先唤起已安装的地图 App；如果没有打开，可以复制地址后在常用地图里搜索。</p>
     </dialog>
+
+    <dialog class="photo-dialog" id="photoDialog" aria-labelledby="photoDialogTitle">
+      <button class="dialog-close photo-close" type="button" data-close-photo aria-label="关闭">×</button>
+      <figure>
+        <img src="" alt="" data-photo-dialog-image />
+        <figcaption id="photoDialogTitle" data-photo-dialog-caption></figcaption>
+      </figure>
+    </dialog>
+
+    <div class="photo-hover-preview" data-photo-hover-preview aria-hidden="true">
+      <img src="" alt="" data-photo-hover-image />
+      <span data-photo-hover-caption></span>
+    </div>
 
     <dialog class="request-dialog" id="requestDialog" aria-labelledby="dialogTitle">
       <button class="dialog-close" type="button" data-close-dialog aria-label="关闭">×</button>

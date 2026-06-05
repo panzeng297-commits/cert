@@ -499,7 +499,7 @@ select {
 
 .room-grid {
   display: grid;
-  gap: clamp(38px, 6vw, 76px);
+  gap: clamp(30px, 4.5vw, 54px);
 }
 
 .room-card {
@@ -508,12 +508,12 @@ select {
   gap: clamp(22px, 4vw, 48px);
   align-items: start;
   border-top: 1px solid var(--line);
-  padding-top: clamp(24px, 3vw, 36px);
+  padding-top: clamp(20px, 2.4vw, 30px);
 }
 
 .room-media {
   display: grid;
-  gap: 16px;
+  gap: 10px;
 }
 
 .room-gallery {
@@ -533,7 +533,14 @@ select {
   height: 100%;
   max-height: 100%;
   background: #ddd8ce;
+  cursor: zoom-in;
   filter: brightness(0.98) contrast(1.07) saturate(0.96);
+}
+
+.room-main-photo:focus-visible,
+.thumb-row img:focus-visible {
+  outline: 3px solid rgba(89, 107, 71, 0.55);
+  outline-offset: -3px;
 }
 
 .room-main-photo {
@@ -559,14 +566,17 @@ select {
 .room-side-notes {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 8px;
 }
 
 .room-side-notes div {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
   border: 1px solid rgba(32, 35, 31, 0.11);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.54);
-  padding: 16px;
+  background: rgba(255, 255, 255, 0.46);
+  padding: 11px 13px;
 }
 
 .room-side-notes span,
@@ -575,7 +585,8 @@ select {
 }
 
 .room-side-notes span {
-  margin-bottom: 8px;
+  flex: 0 0 auto;
+  margin-bottom: 0;
   color: var(--olive);
   font-size: 12px;
   font-weight: 800;
@@ -583,8 +594,8 @@ select {
 
 .room-side-notes strong {
   color: var(--ink);
-  font-size: 15px;
-  line-height: 1.45;
+  font-size: 14px;
+  line-height: 1.35;
 }
 
 .room-copy {
@@ -860,7 +871,8 @@ select {
 }
 
 .request-dialog,
-.map-dialog {
+.map-dialog,
+.photo-dialog {
   width: min(520px, calc(100% - 40px));
   border: 0;
   border-radius: var(--radius);
@@ -871,7 +883,8 @@ select {
 }
 
 .request-dialog::backdrop,
-.map-dialog::backdrop {
+.map-dialog::backdrop,
+.photo-dialog::backdrop {
   background: rgba(23, 25, 21, 0.58);
   backdrop-filter: blur(4px);
 }
@@ -896,6 +909,78 @@ select {
   display: grid;
   gap: 10px;
   margin: 22px 0 16px;
+}
+
+.photo-dialog {
+  width: min(96vw, 1280px);
+  max-width: none;
+  background: #10110f;
+  color: var(--white);
+  padding: clamp(14px, 2vw, 22px);
+}
+
+.photo-dialog figure {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.photo-dialog img {
+  width: 100%;
+  max-height: min(82vh, 900px);
+  object-fit: contain;
+  background: #0b0c0a;
+  border-radius: var(--radius);
+}
+
+.photo-dialog figcaption {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
+  text-align: center;
+}
+
+.photo-close {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.photo-hover-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 80;
+  display: grid;
+  gap: 8px;
+  width: min(560px, 42vw);
+  max-width: calc(100vw - 36px);
+  border-radius: var(--radius);
+  background: #10110f;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+  opacity: 0;
+  padding: 10px;
+  pointer-events: none;
+  transform: translate3d(-9999px, -9999px, 0) scale(0.98);
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+.photo-hover-preview.is-visible {
+  opacity: 1;
+}
+
+.photo-hover-preview img {
+  width: 100%;
+  height: min(58vh, 560px);
+  object-fit: contain;
+  background: #0b0c0a;
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.photo-hover-preview span {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  text-align: center;
 }
 
 .request-dialog .dialog-note {
