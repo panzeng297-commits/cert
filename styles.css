@@ -598,6 +598,29 @@ select {
   line-height: 1.35;
 }
 
+.room-stay-rules {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  border: 1px solid rgba(32, 35, 31, 0.11);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.42);
+  padding: 14px;
+}
+
+.room-stay-rules p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.room-stay-rules strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
 .room-copy {
   position: sticky;
   top: 96px;
@@ -630,11 +653,19 @@ select {
   font-size: 16px;
 }
 
+.room-info-panel {
+  border: 1px solid rgba(32, 35, 31, 0.11);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.44);
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
 .amenities {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 22px 0 24px;
+  margin: 18px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -1107,6 +1138,8 @@ select {
   .transit-layout,
   .location-summary,
   .route-grid,
+  .room-side-notes,
+  .room-stay-rules,
   .facility-grid,
   .notice-grid {
     grid-template-columns: 1fr;
