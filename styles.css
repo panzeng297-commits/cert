@@ -290,8 +290,9 @@ select {
   margin-top: 24px;
   border: 1px solid rgba(32, 35, 31, 0.12);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(255, 255, 255, 0.92);
   padding: clamp(16px, 2vw, 22px);
+  box-shadow: 0 18px 48px rgba(45, 38, 28, 0.08);
 }
 
 .room-booking-head {
@@ -503,7 +504,7 @@ select {
 
 .room-card {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(380px, 0.78fr);
+  grid-template-columns: minmax(0, 1fr) minmax(390px, 0.46fr);
   gap: clamp(22px, 4vw, 48px);
   align-items: start;
   border-top: 1px solid var(--line);
@@ -517,12 +518,13 @@ select {
 
 .room-gallery {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(92px, 0.3fr);
-  gap: 10px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+  gap: 8px;
   align-items: stretch;
-  height: clamp(340px, 32vw, 430px);
+  height: clamp(360px, 35vw, 520px);
   min-height: 0;
   overflow: hidden;
+  border-radius: var(--radius);
 }
 
 .room-main-photo,
@@ -536,24 +538,22 @@ select {
 
 .room-main-photo {
   min-height: 0;
-  border-radius: var(--radius);
   object-fit: cover;
   object-position: center;
 }
 
 .thumb-row {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 10px;
+  gap: 8px;
   min-height: 0;
 }
 
 .thumb-row img {
   min-height: 0;
-  border-radius: var(--radius);
-  object-fit: contain;
-  background:
-    linear-gradient(135deg, rgba(238, 240, 233, 0.86), rgba(221, 223, 214, 0.64));
+  object-fit: cover;
+  background: #ddd8ce;
 }
 
 .room-side-notes {
@@ -588,6 +588,8 @@ select {
 }
 
 .room-copy {
+  position: sticky;
+  top: 96px;
   padding: 4px 0 0;
 }
 
@@ -635,6 +637,60 @@ select {
   font-size: 13px;
 }
 
+.facility-grid,
+.notice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.about-listing {
+  max-width: 760px;
+  border-top: 1px solid var(--line);
+  margin-bottom: clamp(42px, 6vw, 70px);
+  padding-top: 28px;
+}
+
+.about-listing h2 {
+  margin: 0 0 18px;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.about-listing p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.about-listing p + p {
+  margin-top: 14px;
+}
+
+.facility-grid article,
+.notice-grid article {
+  border-top: 1px solid var(--line);
+  padding: 18px 4px 0;
+}
+
+.facility-grid span,
+.notice-grid span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.facility-grid p,
+.notice-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
 .text-link {
   display: inline-flex;
   border-bottom: 1px solid currentColor;
@@ -648,6 +704,37 @@ select {
   grid-template-columns: 0.9fr 1.1fr;
   gap: 18px;
   margin-bottom: 22px;
+}
+
+.location-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 22px;
+  align-items: end;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 22px;
+  padding: 22px 0;
+}
+
+.location-summary span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--olive);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.location-summary h3 {
+  margin: 0;
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 600;
+}
+
+.location-summary p {
+  max-width: 680px;
+  margin: 10px 0 0;
+  color: var(--muted);
 }
 
 .transit-card,
@@ -858,7 +945,16 @@ select {
     grid-template-columns: 1fr;
   }
 
+  .room-copy {
+    position: static;
+  }
+
   .route-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .facility-grid,
+  .notice-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -924,7 +1020,10 @@ select {
   .booking-fields,
   .contact-section,
   .transit-layout,
-  .route-grid {
+  .location-summary,
+  .route-grid,
+  .facility-grid,
+  .notice-grid {
     grid-template-columns: 1fr;
   }
 
